@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For My Love ❤️</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+  overflow: hidden;
+  font-family: 'Poppins', sans-serif;
+  background: radial-gradient(circle at top, #ff9a9e, #fad0c4, #fbc2eb);
+}
+
+/* Matrix Hearts Canvas */
+canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 0;
+}
+
+/* Main Card */
+.card {
+  position: relative;
+  z-index: 2;
+  max-width: 90%;
+  width: 420px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  border-radius: 20px;
+  padding: 30px;
+  text-align: center;
+  box-shadow: 0 0 40px rgba(255, 0, 100, 0.4);
+  animation: fadeIn 2s ease;
+  margin: auto;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+h1 {
+  font-family: 'Pacifico', cursive;
+  color: #fff;
+  font-size: 2.2em;
+  margin-bottom: 15px;
+}
+
+p {
+  color: #fff;
+  font-size: 1em;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+/* Cartoon */
+.couple {
+  font-size: 3.5em;
+  animation: breathe 3s infinite;
+  margin-bottom: 15px;
+}
+
+/* Button */
+button {
+  padding: 14px 26px;
+  border: none;
+  border-radius: 50px;
+  font-size: 1em;
+  background: linear-gradient(45deg, #ff416c, #ff4b2b);
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 0 20px rgba(255, 75, 100, 0.7);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 30px rgba(255, 75, 120, 1);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-60%) }
+  to { opacity: 1; transform: translateY(-50%) }
+}
+
+@keyframes breathe {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+}
+
+/* Floating Hearts */
+.heart {
+  position: fixed;
+  bottom: -10px;
+  color: pink;
+  font-size: 20px;
+  animation: floatUp 5s linear forwards;
+  z-index: 1;
+}
+
+@keyframes floatUp {
+  to {
+    transform: translateY(-110vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="matrix"></canvas>
+
+<div class="card">
+  <div class="couple">🥺❤️🫂</div>
+  <h1>I’m Sorry, My Love</h1>
+  <p id="message">
+    I know I made a mistake 🥺💔 <br>
+    And I hate that I hurt the most precious person in my life. <br><br>
+    You are my heart ❤️ my peace 🌸 my forever 💖 <br>
+    Please forgive me… I promise to be better, always for you ✨
+  </p>
+  <button onclick="forgive()">Forgive Me ❤️</button>
+</div>
+
+<!-- Sounds -->
+<audio id="bgm" loop autoplay>
+  <source src="andriig-wedding-romantic-love-music-471301.mp3" type="audio/mpeg">
+</audio>
+
+<audio id="chime">
+  <source src="andriig-wedding-romantic-love-music-471301.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+/* Matrix Hearts */
+const canvas = document.getElementById("matrix");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+const hearts = ["❤️","💖","✨","💫","💕"];
+let fontSize = 20;
+let columns = canvas.width / fontSize;
+let drops = [];
+
+for (let i = 0; i < columns; i++) drops[i] = 1;
+
+function drawMatrix() {
+  ctx.fillStyle = "rgba(0,0,0,0.05)";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = "#ff69b4";
+  ctx.font = fontSize + "px monospace";
+
+  for (let i = 0; i < drops.length; i++) {
+    let text = hearts[Math.floor(Math.random() * hearts.length)];
+    ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+    if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+      drops[i] = 0;
+    }
+    drops[i]++;
+  }
+}
+
+setInterval(drawMatrix, 50);
+
+/* Floating hearts */
+function createHeart() {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerText = "❤️";
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.fontSize = Math.random() * 20 + 15 + "px";
+  document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), 5000);
+}
+setInterval(createHeart, 400);
+
+/* Button action */
+function forgive() {
+  document.getElementById("chime").play();
+  document.getElementById("message").innerHTML =
+    "Thank you my love 🥹💖<br>You mean everything to me.<br>I’ll protect your heart forever ❤️✨";
+}
+</script>
+
+</body>
+</html>
